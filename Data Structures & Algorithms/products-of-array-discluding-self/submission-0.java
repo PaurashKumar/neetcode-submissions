@@ -1,23 +1,21 @@
 class Solution {
     public int[] productExceptSelf(int[] nums) {
-     int k=1;
-     int n=nums.length-1;
-     int[] prefix=new int[nums.length];
-     int[] suffix=new int[nums.length];
-     int[] ans=new int[nums.length];
-     for(int i=0;i<=n;i++){
-        prefix[i]=k; // [1,1,2,8]  1,k=1*1=1  || 1 k=1*2 || 2 k=2*4  || 8 k=8*6
-        k=k*nums[i];
-     }   
-     k=1;
-     for(int i=n;i>=0;i--){
-        suffix[i]=k;   //[48,24,6,1] 1 k=1*6 || 6 k=6*4 || 24 k=24 * 2 || 48 k=48*1
-        k=k*nums[i];
-     }
+        int l=1,r=1;
+        int left[]=new int[nums.length];
+        int right[]=new int[nums.length];
 
-     for (int i=0;i<=n;i++){
-        ans[i]=prefix[i]*suffix[i];
-     }
-    return ans;
+        for(int i=0;i<nums.length;i++){
+            left[i]=l;
+            l=l*nums[i];
+        }// [1,1,2,8]
+        for(int j=nums.length-1;j>=0;j--){
+            right[j]=r;
+            r=r*nums[j];
+        }//[48,24,6,1]
+
+        for(int i=0;i<nums.length;i++){
+            nums[i]=left[i]*right[i];
+        }
+        return nums;
     }
 }  
